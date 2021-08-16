@@ -13,7 +13,8 @@ namespace WhatIsMyIP.Controllers
     {
         public async Task<IpLookupInfo> Index(int lookup = 0)
         {
-            string ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+
+            string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
             var response = new IpLookupInfo(ipAddress);
             if (lookup == 0)
                 return response;
