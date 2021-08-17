@@ -15,10 +15,15 @@ namespace WhatIsMyIP.Controllers
         {
 
             string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            bool isForwardedIp = false;
             if (Request.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
                 if (Request.HttpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedIpAddress))
+                {
                     ipAddress = forwardedIpAddress.ToString();
-            var response = new IpLookupInfo(ipAddress);
+                    isForwardedIp = true;
+                }
+            //Response
+            var response = new IpLookupInfo(ipAddress, isForwardedIp);
             if (lookup == 0)
                 return response;
             //Query External Info

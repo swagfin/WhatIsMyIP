@@ -2,11 +2,13 @@
 {
     public class IpLookupInfo
     {
-        public IpLookupInfo(string ipAddress)
+        public IpLookupInfo(string ipAddress, bool isIpForwarded)
         {
             Ip = ipAddress;
+            IsIpForwarded = isIpForwarded;
         }
         public string Ip { get; set; }
+        public bool IsIpForwarded { get; set; } = false;
         public string Hostname { get; set; }
         public string Loc { get; set; }
         public string Org { get; set; }
