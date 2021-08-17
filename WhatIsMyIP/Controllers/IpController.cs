@@ -15,6 +15,9 @@ namespace WhatIsMyIP.Controllers
         {
 
             string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            if (Request.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+                if (Request.HttpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedIpAddress))
+                    ipAddress = forwardedIpAddress.ToString();
             var response = new IpLookupInfo(ipAddress);
             if (lookup == 0)
                 return response;
